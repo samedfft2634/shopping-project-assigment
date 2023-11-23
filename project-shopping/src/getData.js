@@ -17,6 +17,7 @@ export const getData = async () => {
 			getProducts(data);
 			createButton(data);
 			addToCart(data)
+			console.log(data);
 		}
 	} catch (error) {
 		console.error(error);
