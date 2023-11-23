@@ -1,5 +1,7 @@
 import { getProducts } from "./getProduct";
 import { createButton } from "./createButton";
+import { addToCart } from "./addToCart";
+
 
 let element = [];
 export const getData = async () => {
@@ -14,7 +16,7 @@ export const getData = async () => {
 			element = data;
 			getProducts(data);
 			createButton(data);
-			console.log(data);
+			addToCart(data)
 		}
 	} catch (error) {
 		console.error(error);
@@ -62,3 +64,6 @@ const filterInput = () => {
 	});
 };
 filterInput();
+
+
+

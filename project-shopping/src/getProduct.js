@@ -31,16 +31,17 @@ export const getProducts = (productItem) => {
             <div
                 class="card-footer w-100 fw-bold d-flex justify-content-between gap-3"
             >
-                <span>Price:</span><span>${price}$</span>
+                <span>Price:</span><span class="priceSpan">${price}$</span>
             </div>
             <div
                 class="card-footer w-100 d-flex justify-content-center gap-3"
             >
-                <button class="btn btn-danger">Sepete Ekle</button>
+                <button class="btn btn-danger cart">Sepete Ekle</button>
                 <button
                     class="btn btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
+                    id="details"
                 >
                     See Details
                 </button>
