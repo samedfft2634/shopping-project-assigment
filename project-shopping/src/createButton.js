@@ -1,13 +1,11 @@
-import { filterProductByCategory } from "./filterProduct"
-
+import { filterProductByCategory } from "./getData"
 export const createButton = (data)=>{
     const categories = data.reduce((a,b)=>{
         if(!a.includes(b.category)){
             a.push(b.category)
         } 
         return a
-    },[])
-    categories.unshift("ALL")
+    },["ALL"])
     categories.forEach((items)=>{
         const button = document.createElement("button")
         button.className = "btn btn-danger"
