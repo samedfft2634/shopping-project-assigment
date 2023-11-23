@@ -1,4 +1,5 @@
 export const addToCart = (data)=>{
+    // let myCart = []
     const product = document.getElementById("products")
     const cartBody = document.querySelector(".offcanvas-body")
     product.addEventListener("click", (e)=>{
@@ -40,6 +41,9 @@ export const addToCart = (data)=>{
 						</div>
 					</div>
             `
+            
+            myCart.push(cardTitle)
+            console.log(myCart);
             // if(cartBody.child)
             cartBody.append(cardRow)
             
