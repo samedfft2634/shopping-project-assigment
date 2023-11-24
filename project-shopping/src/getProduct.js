@@ -17,7 +17,7 @@ export const getProducts = (productItem) => {
         
         
 		col.innerHTML = `
-        <div class="card">
+        <div class="card" >
             <img
                 src="${image}"
                 class="p-2"
