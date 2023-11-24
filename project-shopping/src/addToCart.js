@@ -2,6 +2,7 @@ let myCart = [];
 export const addToCart = () => {
 	const product = document.getElementById("products");
 	const sepet = document.getElementById("sepet");
+	//
 	product.addEventListener("click", (e) => {
 		if (e.target.classList.contains("cart")) {
 			const card = e.target.closest(".card");
@@ -64,6 +65,6 @@ const updateCartUI = ()=>{
 }
 			
 
-			
+// + veya - ye basildigi zaman mycarttaki .quantity guncellenecek ve doma basilacak, remove da da o cart silinecek 
 
 	
