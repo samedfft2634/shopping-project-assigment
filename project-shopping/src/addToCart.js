@@ -8,30 +8,35 @@ export const addToCart = () => {
 			const card = e.target.closest(".card");
 			const cardTitle = card.querySelector(".card-title").textContent;
 			const cardImg = card.querySelector("img").src;
-			const cardPrice = card.querySelector(".card-footer .priceSpan").textContent;
+			const cardPrice = card.querySelector(
+				".card-footer .priceSpan"
+			).textContent;
 			//
-			const existProduct = myCart.find((item)=>item.cardTitle === cardTitle)
+			const existProduct = myCart.find(
+				(item) => item.cardTitle === cardTitle
+			);
 			//
-			if(existProduct){
-				existProduct.quantity++
+			if (existProduct) {
+				existProduct.quantity++;
 			} else {
-				myCart.push({cardTitle, cardImg, cardPrice, quantity : 1})
+				myCart.push({ cardTitle, cardImg, cardPrice, quantity: 1 });
 			}
 			updateCartUI();
+			sepet.textContent = myCart.length;
 		}
-		sepet.textContent = myCart.length
-	})
-}
+	});
+};
 
-const updateCartUI = ()=>{
-	const cards = document.getElementById("cards")
-	cards.innerHTML = ""
-	myCart.forEach((item)=>{
-		const cardRows= document.createElement("div")
+const updateCartUI = () => {
+	const cards = document.getElementById("cards");
+	cards.innerHTML = "";
+	console.log(myCart);
+	myCart.forEach((item, index) => {
+		const cardRows = document.createElement("div");
 		cardRows.classList.add("card", "mb-3");
 		cardRows.style = "max-width: 540px";
 		cardRows.innerHTML = `
-            <div class="row g-0">
+            <div class="row g-0 rowProduct" >
 						<div class="col-md-4 my-auto">
 							<img
 								src="${item.cardImg}"
@@ -60,11 +65,43 @@ const updateCartUI = ()=>{
 						</div>
 					</div>
             `;
-			cards.append(cardRows)
-	})
-}
-			
+		cards.append(cardRows);
+		
+		const spanInCard = cardRows.querySelector(".quantText");
+		// const rowProduct = cardRows.getElementById("rowProduct")
 
-// + veya - ye basildigi zaman mycarttaki .quantity guncellenecek ve doma basilacak, remove da da o cart silinecek 
+		   //for plus button
+		   const plusButton = cardRows.querySelector(".fa-plus");
+		   plusButton.addEventListener("click", () => {
+			   updateQuantity("plus");
+		   });
+   
+		   //minus button
+		   const minusButton = cardRows.querySelector(".fa-minus");
+		   minusButton.addEventListener("click", () => {
+			   updateQuantity("minus");
+		   });
+   
+		   const removeButton = cardRows.querySelector(".btn-danger");
+		   removeButton.addEventListener("click", () => {
+            myCart.splice(index, 1);
+            cardRows.remove();
+            sepet.textContent = myCart.length;
 
-	
+            console.log(myCart);
+		   });
+		   
+		function updateQuantity(operation) {
+            if (operation === "plus") {
+                item.quantity++;
+            } else if (operation === "minus" && item.quantity > 1) {
+                item.quantity--;
+            }
+            spanInCard.textContent = item.quantity;
+        }
+
+     
+		
+	});
+};
+
