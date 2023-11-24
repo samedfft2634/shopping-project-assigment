@@ -1,8 +1,8 @@
 export const getProducts = (productItem) => {
-    const productsSection = document.getElementById("products");
+	const productsSection = document.getElementById("products");
 	productItem.forEach((product) => {
 		const col = document.createElement("div");
-        
+
 		col.className = "col";
 		const {
 			category,
@@ -14,8 +14,7 @@ export const getProducts = (productItem) => {
 			quantity,
 			title,
 		} = product;
-        
-        
+
 		col.innerHTML = `
         <div class="card" >
             <img
@@ -38,17 +37,48 @@ export const getProducts = (productItem) => {
             >
                 <button class="btn btn-danger cart">Sepete Ekle</button>
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-primary details"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
-                    id="details"
+                   
                 >
                     See Details
                 </button>
             </div>
         </div>
         `;
-        productsSection.appendChild(col)
+        col.querySelector('.details').setAttribute('data-product-id', product.id);
+		productsSection.appendChild(col);
+ 
+        
 	});
+    const exampleModal = document.getElementById('exampleModal');
+    const myModal = new bootstrap.Modal(exampleModal);
+
+    productsSection.addEventListener("click", (event) => {
+        if (event.target.classList.contains("details")) {
+            const productId = event.target.getAttribute("data-product-id");
+            const product = productItem.find(p => p.id.toString() === productId);
+           
+            if (product) {
+                // Update modal content dynamically
+                const modalBody = exampleModal.querySelector('.modal-body');
+                modalBody.innerHTML = `
+                    <img src="${product.image}" class="img-fluid" alt="${product.title}">
+                    <p>${product.description}</p>
+                    <p>Price: ${product.price}$</p>
+                `;
     
+                // Set the modal title
+                const modalTitle = exampleModal.querySelector('.modal-title');
+                modalTitle.textContent = product.title;
+    
+                // Show the modal
+                myModal.show();
+                exampleModal.querySelector('.btn-close').addEventListener('click', () => {
+                    myModal.hide();
+                });
+            }
+        }
+    });
 };

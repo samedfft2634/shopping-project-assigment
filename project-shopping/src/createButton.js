@@ -16,4 +16,3 @@ export const createButton = (data)=>{
         btns.appendChild(button)
     })
 }
-

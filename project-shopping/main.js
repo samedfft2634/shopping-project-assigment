@@ -4,6 +4,7 @@ import { categoryText } from './src/categoryText';
 
 window.addEventListener("load",()=>{
     getData()
+
 });
 categoryText()
 

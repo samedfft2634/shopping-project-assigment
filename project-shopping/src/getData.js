@@ -3,6 +3,7 @@ import { createButton } from "./createButton";
 import { addToCart } from "./addToCart";
 
 
+
 let element = [];
 export const getData = async () => {
 	try {
@@ -65,6 +66,3 @@ const filterInput = () => {
 	});
 };
 filterInput();
-
-
-
