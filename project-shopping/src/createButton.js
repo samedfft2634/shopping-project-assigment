@@ -6,13 +6,22 @@ export const createButton = (data)=>{
         } 
         return a
     },["ALL"])
-    categories.forEach((items)=>{
+    const btnColors = [
+        "primary",
+        "warning",
+        "danger",
+        "success",
+        "secondary",
+        "info",
+      ];
+    categories.forEach((items,i)=>{
         const button = document.createElement("button")
-        button.className = "btn btn-danger"
+        button.classList.add("btn",`btn-${btnColors[i]}`)
         button.textContent = `${items}`
         button.addEventListener("click",()=>{
             filterProductByCategory(data,items)
         })
         btns.appendChild(button)
     })
+
 }
