@@ -31,7 +31,7 @@ export const addToCart = () => {
 const updateCartUI = () => {
 	const cards = document.getElementById("cards");
 	cards.innerHTML = "";
-	console.log(myCart);
+
 	myCart.forEach((item) => {
 		const cardRows = document.createElement("div");
 		cardRows.classList.add("card", "mb-3");
@@ -86,7 +86,7 @@ const updateCartUI = () => {
 			updateQuantity("minus");
 		});
 		const removeButton = cardRows.querySelector(".btn-danger");
-		removeButton.addEventListener("click", async () => {
+		removeButton.addEventListener("click", () => {
 			const itemIndex = myCart.findIndex(
 				(cartItem) => cartItem.cardTitle === item.cardTitle
 			);
@@ -119,3 +119,4 @@ function updateTotal() {
 	}, 0);
 	totalPrice.textContent = `$${result.toFixed(2)}`;
 }
+
