@@ -1,7 +1,15 @@
 export let myCart = [];
+window.addEventListener("load", () => {
+	const callCart = localStorage.getItem("myCart");
+	if (callCart) {
+		myCart = JSON.parse(callCart);
+		updateCartUI();
+		updateTotal();
+		cartNotification() 
+	}
+});
 export const addToCart = () => {
 	const product = document.getElementById("products");
-	const sepet = document.getElementById("sepet");
 	//
 	product.addEventListener("click", (e) => {
 		if (e.target.classList.contains("cart")) {
@@ -22,17 +30,24 @@ export const addToCart = () => {
 			} else {
 				myCart.push({ cardTitle, cardImg, cardPrice, quantity: 1 });
 			}
+			localStorage.setItem("myCart", JSON.stringify(myCart));
 			updateCartUI();
-			sepet.textContent = myCart.length;
+			cartNotification() 
+
 		}
 	});
 };
 
+
+const cartNotification = ()=>{
+	const sepet = document.getElementById("sepet");
+	sepet.textContent = myCart.length;
+}
 const updateCartUI = () => {
 	const cards = document.getElementById("cards");
 	cards.innerHTML = "";
 
-	myCart.forEach((item) => {
+	myCart.forEach((item, index) => {
 		const cardRows = document.createElement("div");
 		cardRows.classList.add("card", "mb-3");
 		cardRows.style = "max-width: 540px";
@@ -93,7 +108,7 @@ const updateCartUI = () => {
 			if (itemIndex > -1) {
 				myCart.splice(itemIndex, 1);
 				cardRows.remove();
-				sepet.textContent = myCart.length;
+				cartNotification() 				
 				updateTotal();
 			}
 		});
@@ -101,12 +116,14 @@ const updateCartUI = () => {
 
 		function updateQuantity(operation) {
 			if (operation === "plus") {
-				item.quantity++;
-			} else if (operation === "minus" && item.quantity > 1) {
-				item.quantity--;
+				myCart[index].quantity++;
+			} else if (operation === "minus" && myCart[index].quantity > 1) {
+				myCart[index].quantity--;
 			}
-			spanInCard.textContent = item.quantity;
-			timesQuantity.textContent = item.quantity;
+			spanInCard.textContent = myCart[index].quantity;
+			timesQuantity.textContent = myCart[index].quantity;
+			localStorage.setItem("myCart", JSON.stringify(myCart));
+			updateTotal();
 		}
 	});
 };
@@ -118,5 +135,5 @@ function updateTotal() {
 		// a + (b.quantity * b.cardPrice)
 	}, 0);
 	totalPrice.textContent = `$${result.toFixed(2)}`;
+	localStorage.setItem("myCart", JSON.stringify(myCart));
 }
-
